@@ -80,11 +80,11 @@ async function STBLK() {
           default:
             conteudoMsg = `[${tipo}]`;
         }
-        console.log(colors.green('\n=========================='));
-        console.log(`${chalk.cyan.bold(nomeGrupoOuPrivado)}`);
-        console.log(`${chalk.yellow.bold('@')}${sender.split('@')[0]} (${pushName})`);
-        console.log(`${chalk.whiteBright(conteudoMsg)}`);
-        console.log(colors.green('=========================='));
+        console.log(colors.green('\n╭────────────❍❍❍❍🩸❍❍❍❍────────────╮'));
+        console.log(`${chalk.hex('#00BFFF').bold('📍 Chat:')} ${chalk.white.bold(nomeGrupoOuPrivado)}`);
+console.log(`${chalk.hex('#FFA500').bold('👤 Usuário:')} ${chalk.white(`${pushName} @${sender.split('@')[0]}`)}`);
+console.log(`${chalk.hex('#ADFF2F').bold('💬 Mensagem:')} ${chalk.whiteBright(conteudoMsg)}`);
+        console.log(colors.green('╰────────────❍❍❍❍🩸❍❍❍❍────────────╯'));
         await upsert(m, sock);
       } catch (e) {
         console.error('Erro no messages.upsert:', e);
