@@ -15,6 +15,18 @@
     {
       "gatilhos": ["sanizinha"],
       "resposta": "ooiii👁️👄👁️💅🏻"
+     },
+    {
+      "gatilhos": ["bot"],
+      "resposta": "👁️👄👁️💅🏻"
+    },
+    {
+      "gatilhos": ["meu deus", "meu deus kkk", "kkkk", "kkkkkkkkkk", "kkkkkkk", "meu deus kkkkk"],
+      "resposta": "😹😹😹😹"
+    },
+    {
+    "gatilhos": ["Sim e vc", "sim é vc?", "sim e vc?", "sim é vc?"],
+    "respota": "to bem😸 graças ao meu cridor😻"
     },
     {
       "gatilhos": ["sanizinhaaa", "sanizinhaaaa", "sanizinhaaaaaa"],

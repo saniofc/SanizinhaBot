@@ -6,21 +6,28 @@ NC='\033[0m'
 
 clear
 printf "${BLUE}==========================================\n"
-printf "${GREEN}     ⌛ Atualizando bot Sanizinha...     \n"
+printf "${GREEN}     ⌛ Atualizando Sanizinha...     \n"
 printf "${BLUE}==========================================${NC}\n"
 sleep 1
 
+# Define pasta
+BOT_DIR="/storage/emulated/0/SanizinhaBot"
+
 # Adiciona exceção para o diretório
-git config --global --add safe.directory /storage/emulated/0/SanizinhaBot
+git config --global --add safe.directory "$BOT_DIR"
 
-# Vai para a pasta do bot
-cd /storage/emulated/0/SanizinhaBot || exit
+# Vai para a pasta
+cd "$BOT_DIR" || exit
 
-# Atualiza o repositório
-git pull origin main
+# Remove todas alterações locais e força o conteúdo do repositório remoto
+git fetch origin
+git reset --hard origin/main
+
+# Limpa arquivos que não estão no repositório
+git clean -fd
 
 # Mensagem final
-printf "${GREEN}✅BOT ATUALIZADO💕😻✨!${NC}\n"
+printf "${GREEN}✅ BOT ATUALIZADO COM SUCESSO😻💕✨${NC}\n"
 printf "${BLUE}🚀 Iniciando o bot...${NC}\n"
 
 # Inicia o bot
