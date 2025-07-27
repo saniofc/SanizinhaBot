@@ -23,52 +23,54 @@ module.exports = async function menuAdmCommand(msg, sock, from) {
       ppUrl = 'https://files.catbox.moe/1716db.jpg';
     }
     const thumbnail = await axios.get(ppUrl, { responseType: 'arraybuffer' }).then(res => res.data);
-    const menuAdmText = `╭─❍❍❍❍❍❍❍❍─╮
-│Bem-vindo ${userTag}
-╰─❍❍❍❍❍❍❍❍─╯
+    const lermais = '\u200E'.repeat(4501);
+    const menuAdmText = `~✦ ❍✦ ❍✦ ✰ ✦❍ ✦❍ ✦~
+│𝗕𝗲𝗺 𝘃𝗶𝗻𝗱𝗼 ${userTag}
+~✦ ❍✦ ❍✦ ✰ ✦❍ ✦❍ ✦~
+${lermais}
+🛡️ COMANDOS-ADM
+> 🛡️ ► 𝗴𝗽𝗮 7h 30m
+> 🛡️ ► 𝗴𝗽𝗳 23h 59m
+> 🛡️ ► 𝗔 abrir 𝗙 fecha
+> 🛡️ ► 𝗯𝗮𝗻 / 𝗯
+> 🛡️ ► 𝗹𝗶𝗻𝗸𝗴𝗽
+> 🛡️ ► 𝗺𝘂𝘁𝗲
+> 🛡️ ► 𝗹𝗶𝘀𝘁𝗮𝗻𝗲𝗴𝗿𝗮
+> 🛡️ ► 𝘁𝗶𝗿𝗮𝗿𝗱𝗮𝗹𝗶𝘀𝘁𝗮
+> 🛡️ ► 𝘃𝗲𝗿𝗹𝗶𝘀𝘁𝗮
+> 🛡️ ► 𝗱𝗲𝘀𝗺𝘂𝘁𝗲
+> 🛡️ ► 𝗮𝗻𝘁𝗶𝗹𝗶𝗻𝗸
+> 🛡️ ► 𝗮𝗻𝘁𝗶𝘁𝗿𝗮𝘃𝗮
+> 🛡️ ► 𝗮𝗻𝘁𝗶𝗽𝗼𝗿𝗻𝗼
+> 🛡️ ► 𝗮𝗻𝗿𝗶𝗳𝗮𝗸𝗲
+> 🛡️ ► 𝗯𝗲𝗺𝘃𝗶𝗻𝗱𝗼
+> 🛡️ ► 𝗹𝗲𝗴𝗲𝗻𝗱𝗮𝗯𝘃
+> 🛡️ ► 𝗹𝗶𝗺𝗽𝗮𝗿
+> 🛡️ ► 𝗹𝗶𝗺𝗽𝗮𝗿𝗮𝗻𝗸
+> 🛡️ ► 𝗹𝗶𝗺𝗽𝗮𝗿𝗮𝗻𝗸2
+> 🛡️ ► 𝗯𝗹𝗼𝗰𝗸𝗴𝗽
+> 🛡️ ► 𝗺𝗮𝗿𝗰𝗮 / 𝗰𝗶𝘁𝗮
+> 🛡️ ► 𝘁𝗼𝘁𝗮𝗴
+> 🛡️ ► 𝗮𝗽𝗮𝗴𝗮𝗿
+> 🛡️ ► 𝗱𝗲𝗹
+> 🛡️ ► 𝗮𝘃𝘁
 
-🛡️ COMANDOS DE ADM
-> 🛡️ ► gpa
-> 🛡️ ► gpf
-> 🛡️ ► ban / b
-> 🛡️ ► vasco
-> 🛡️ ► linkgp
-> 🛡️ ► mute
-> 🛡️ ► listanegra
-> 🛡️ ► tirardalista
-> 🛡️ ► verlista
-> 🛡️ ► desmute
-> 🛡️ ► antilink
-> 🛡️ ► antitrava
-> 🛡️ ► antiporno
-> 🛡️ ► antifake
-> 🛡️ ► bemvindo
-> 🛡️ ► legendabv
-> 🛡️ ► limpar
-> 🛡️ ► limparank
-> 🛡️ ► limparank2
-> 🛡️ ► blockgp
-> 🛡️ ► marca
-> 🛡️ ► totag
-> 🛡️ ► avt
-
-💎 COMANDOS DO DONO
+💎 COMANDOS-DONO
 > 💎 ► reiniciar
 > 💎 ► nuke
 > 💎 ► entrargp
 > 💎 ► sairgp
 > 💎 ► tmss
-> 💎 ► iaon - ligar ia
-> 💎 ► xiubot - desliga ia
+> 💎 ► idgp
 > 💎 ► novodono
 > 💎 ► banghost
-> 💎 ► antipromote
+> 💎 ► 𝗮𝗻𝘁𝗶𝗽𝗿𝗼𝗺𝗼𝘁𝗲
 > 💎 ► bloock
 > 💎 ► unbloock
 > 💎 ► listblock
 > 💎 ► nomebot
 > 💎 ► botoff / boton
-❃═══✰${nomebot}✰═══❃`;
+~✦      ★      𝑺𝒂𝒏𝒊𝒛𝒊𝒏𝒉𝒂𝑩𝒐𝒕      ★     ✦~`;
     await sock.sendMessage(from, {
       text: menuAdmText,
       mentions: [sender],

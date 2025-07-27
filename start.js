@@ -48,9 +48,16 @@ async function STBLK() {
         const pushName = msg.pushName || 'Usuário';
         const isGroup = from.endsWith('@g.us');
         const tipo = Object.keys(msg.message)[0];
-        const nomeGrupoOuPrivado = isGroup
-          ? (await sock.groupMetadata(from)).subject
-          : 'Privado';
+        let nomeGrupoOuPrivado = 'Privado';
+if (isGroup) {
+  try {
+    const metadata = await sock.groupMetadata(from);
+    nomeGrupoOuPrivado = metadata.subject || 'Grupo';
+  } catch (e) {
+    console.error('Erro ao obter metadata do grupo no upsert:', e?.message || e);
+    nomeGrupoOuPrivado = 'Grupo Desconhecido';
+  }
+}
         let conteudoMsg = '';
         switch (tipo) {
           case 'conversation':
@@ -91,60 +98,77 @@ console.log(`${chalk.hex('#ADFF2F').bold('💬 Mensagem:')} ${chalk.whiteBright(
       }
     });
     sock.ev.on('group-participants.update', async (update) => {
-      try {
-        await onGroupParticipantsUpdate(update, sock);
-        const { id: groupId, participants, action } = update;
-        if (action === 'remove') {
-          const contadorPath = './dados/contador.json';
-          if (!fs.existsSync(contadorPath)) return;
-          let contador = JSON.parse(fs.readFileSync(contadorPath, 'utf-8'));
-          if (typeof contador !== 'object') return;
-          for (const user of participants) {
-            if (contador[groupId]?.[user]) {
-              delete contador[groupId][user];
-            }
-            if (contador[groupId] && Object.keys(contador[groupId]).length === 0) {
-              delete contador[groupId];
-            }
-          }
-          fs.writeFileSync(contadorPath, JSON.stringify(contador, null, 2));
+  try {
+    // Tenta pegar a metadata
+    let metadata;
+    try {
+      metadata = await sock.groupMetadata(update.id);
+    } catch (e) {
+      console.error('Erro ao obter metadata do grupo:', e?.message || e);
+      return; // Não chama mais nada se falhar
+    }
+
+    // Só chama agora, se conseguiu metadata
+    await onGroupParticipantsUpdate(update, sock);
+
+    const { id: groupId, participants, action } = update;
+    if (action === 'remove') {
+      const contadorPath = './dados/contador.json';
+      if (!fs.existsSync(contadorPath)) return;
+
+      let contador = JSON.parse(fs.readFileSync(contadorPath, 'utf-8'));
+      if (typeof contador !== 'object') return;
+
+      for (const user of participants) {
+        if (contador[groupId]?.[user]) {
+          delete contador[groupId][user];
         }
-      } catch (e) {
-        console.error('Erro em group-participants.update:', e);
+        if (contador[groupId] && Object.keys(contador[groupId]).length === 0) {
+          delete contador[groupId];
+        }
       }
-    });
+
+      fs.writeFileSync(contadorPath, JSON.stringify(contador, null, 2));
+    }
+  } catch (e) {
+    console.error('Erro em group-participants.update:', e);
+  }
+});
     sock.ev.on('connection.update', async ({ connection, lastDisconnect, qr }) => {
       if (qr && !pairingCode) {
         console.log('\n📷 Escaneie o QR code abaixo:\n');
         require('qrcode-terminal').generate(qr, { small: true });
       }
       if (connection === 'close') {
-        const reason = lastDisconnect?.error;
-        const statusCode = new Boom(reason)?.output?.statusCode;
-        console.log(colors.red('Conexão fechada! Motivo:'), reason);
-        console.log(colors.red('Código de status:'), statusCode);
-        if (reconnecting) {
-          console.log(colors.yellow('Já está tentando reconectar, ignorando chamada duplicada.'));
-          return;
-        }
-        reconnecting = true;
-        if (statusCode !== DisconnectReason.loggedOut) {
-          console.log(colors.yellow('Tentando reconectar em 5 segundos...'));
-          await new Promise(resolve => setTimeout(resolve, 5000));
-          try {
-            await STBLK();
-          } catch (err) {
-            console.error('Erro ao tentar reconectar:', err);
-          }
-          reconnecting = false;
-        } else {
-          console.log(colors.red("Sessão encerrada pelo logout. Excluindo diretório de sessão..."));
-          exec(`rm -rf ${qrcodePath}`, (err) => {
-            if (err) console.error('Erro ao excluir sessão:', err);
-            process.exit(0);
-          });
-        }
-      }
+  const reason = lastDisconnect?.error;
+  const statusCode = new Boom(reason)?.output?.statusCode;
+  console.log(colors.red('Conexão fechada! Motivo:'), reason);
+  console.log(colors.red('Código de status:'), statusCode);
+  if (lastDisconnect?.error?.output?.payload?.message === 'Stream Errored (unknown)' || statusCode === 503) {
+    console.log(colors.red('❌ Erro de stream detectado (503 - Service Unavailable)'));
+  }
+  if (reconnecting) {
+    console.log(colors.yellow('Já está tentando reconectar, ignorando chamada duplicada.'));
+    return;
+  }
+  reconnecting = true;
+  if (statusCode !== DisconnectReason.loggedOut) {
+    console.log(colors.yellow('Tentando reconectar em 5 segundos...'));
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    try {
+      await STBLK();
+    } catch (err) {
+      console.error('Erro ao tentar reconectar:', err);
+    }
+    reconnecting = false;
+  } else {
+    console.log(colors.red("Sessão encerrada pelo logout. Excluindo diretório de sessão..."));
+    exec(`rm -rf ${qrcodePath}`, (err) => {
+      if (err) console.error('Erro ao excluir sessão:', err);
+      process.exit(0);
+    });
+  }
+}
       else if (connection === 'open') {
         reconnecting = false;
         const texto = `

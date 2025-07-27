@@ -1,13 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-
-// Ajusta o caminho para info.json de forma robusta
 const infoPath = path.resolve(__dirname, '../dono/info.json');
-
-let nomebot = 'SanizinhaBot💕'; // fallback caso info.json não carregue
+let nomebot = 'SanizinhaBot💕';
 let numerodono = '';
-
 try {
   const info = require(infoPath);
   nomebot = info.nomebot || nomebot;
@@ -15,30 +11,23 @@ try {
 } catch (e) {
   console.warn(`⚠️ Não foi possível carregar info.json em ${infoPath}, usando valores padrão.`);
 }
-
 module.exports = async function menuCommand(msg, sock, from) {
   try {
     const sender = msg.key.participant || msg.participant || msg.key.remoteJid || from;
     const userTag = `@${sender.split('@')[0]}`;
     const isDono = sender.includes(numerodono);
-
     const groupMetadata = await sock.groupMetadata(from);
     const isAdmin = groupMetadata.participants?.some(p =>
       p.id === sender && (p.admin === 'admin' || p.admin === 'superadmin')
     );
     const admStatus = isAdmin ? '✅' : '❌';
-
     await sock.sendMessage(from, { react: { text: '🙇🏻‍♀️', key: msg.key } });
-
     const hora = new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-
     const uptime = process.uptime();
     const uptimeHoras = Math.floor(uptime / 3600);
     const uptimeMin = Math.floor((uptime % 3600) / 60);
     const uptimeSeg = Math.floor(uptime % 60);
-
     const thumbnailUrl = 'https://files.catbox.moe/1716db.jpg';
-
     async function getBuffer(url) {
       try {
         const res = await axios.get(url, { responseType: 'arraybuffer' });
@@ -48,20 +37,18 @@ module.exports = async function menuCommand(msg, sock, from) {
         return null;
       }
     }
-
     const thumbnail = await getBuffer(thumbnailUrl);
-
-    const menuText = `╭─❍❍❍❍🩸❍❍❍❍─╮
+    const lermais = '\u200E'.repeat(4500);
+    const menuText = `~✦ ❍✦ ❍✦ ✰ ✦❍ ✦❍ ✦~
 │✭ 𝗢𝗶𝗶 ${userTag}
 │✭ 𝗼𝗻𝗹𝗶𝗻𝗲 𝗮: ${uptimeHoras}𝗵 ${uptimeMin}𝗺 ${uptimeSeg}𝘀
 │✭ 𝗛𝗼𝗿𝗮: ${hora}
 │✭ 𝗗𝗼𝗻𝗼: ${isDono ? '☑️' : '❌'}
 │✭ 𝗔𝗱𝗺: ${admStatus}
-╰─❍❍❍❍🩸❍❍❍❍─╯
-
-💞COMANDOS💞
+~✦ ❍✦ ❍✦ ✰ ✦❍ ✦❍ ✦~
+${lermais} 
+💕COMANDOS💕
 > 👑ۣ ► menuadm
-> 🌎 ► sanizinha
 > 🌎 ► grupoofc  
 > 🌎 ► sorteio
 > 🌎 ► criador
@@ -75,6 +62,7 @@ module.exports = async function menuCommand(msg, sock, from) {
 > 🌎 ► dono
 > 🌎 ► ping
 > 🌎 ► bot
+> 🌎 ► 1+1
 > 🌎 ► fs
 
 🎭ZOEIRA😂
@@ -100,21 +88,20 @@ module.exports = async function menuCommand(msg, sock, from) {
 
 🎮JOGOS⚽
 > 🎲 ► dado
-> 👵🏻 ► jogodavelha
-> 💣 ► campominado
-> 🧩 ► memoria
-> 🧸 ► forca
+> 👵🏻 ► jogodavelha🚫
+> 💣 ► campominado🚫
+> 🧩 ► memoria🚫
+> 🧸 ► forca🚫
 
 🔍DOWNLOADS🔎
 > 🎶 ► play
 > 🎶 ► playvd
-> 🎶 ► videopraaudio
+> 🎶 ► videopraaudio🚫
 
 💭INFOS/IDEIA💡
 > 🪐 ► infogp    
 > 🪐 ► ideia
-❃═══✰${nomebot}✰═══❃`;
-
+~✦      ★      𝑺𝒂𝒏𝒊𝒛𝒊𝒏𝒉𝒂𝑩𝒐𝒕      ★     ✦~`;
     await sock.sendMessage(from, {
       text: menuText,
       mentions: [sender],
@@ -132,7 +119,6 @@ module.exports = async function menuCommand(msg, sock, from) {
         }
       }
     }, { quoted: msg });
-
   } catch (err) {
     console.error('Erro ao enviar menu:', err.message);
     await sock.sendMessage(from, { text: '❌ Erro ao carregar menu.' }, { quoted: msg });
