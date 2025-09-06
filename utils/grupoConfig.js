@@ -11,8 +11,12 @@ function carregarConfigGrupo(grupoId, nomeGrupo = '') {
     antiporno: false,
     antifake: false,
     antitrava: false,
+    antiimagem: false,
+    antiloc: false,
     blockgp: false,
     sania: false,
+    autovisu: false,
+    botoff: false,
     bemvindo: false,
     legendabv: "💕Oiê #membro#"
   };
@@ -28,8 +32,12 @@ function carregarConfigGrupo(grupoId, nomeGrupo = '') {
     data.antiporno = !!data.antiporno;
     data.antifake = !!data.antifake;
     data.antitrava = !!data.antitrava;
+    data.antiimagem = !!data.antiimagem;
+    data.antiloc = !!data.antiloc;
     data.blockgp = !!data.blockgp;
     data.sania = !!data.sania;
+    data.botoff = !!data.botoff;
+    data.autovisu = !!data.autovisu;
     data.bemvindo = !!data.bemvindo;
     data.legendabv = data.legendabv || "💕Oiê #membro#";
     if (nomeGrupo && data.nome !== nomeGrupo) {

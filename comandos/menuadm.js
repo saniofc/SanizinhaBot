@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { nomebot } = require('../dono/info.json');  // Importa nomebot do JSON
+const { nomebot } = require('../dono/info.json');
 
 module.exports = async function menuAdmCommand(msg, sock, from) {
   try {
@@ -32,7 +32,7 @@ ${lermais}
 > 🛡️ ► 𝗴𝗽𝗮 7h 30m
 > 🛡️ ► 𝗴𝗽𝗳 23h 59m
 > 🛡️ ► 𝗔 abrir 𝗙 fecha
-> 🛡️ ► 𝗯𝗮𝗻 / 𝗯
+> 🛡️ ► 𝗯𝗮𝗻 / 𝗯 / 𝗯𝗮𝗺
 > 🛡️ ► 𝗹𝗶𝗻𝗸𝗴𝗽
 > 🛡️ ► 𝗺𝘂𝘁𝗲
 > 🛡️ ► 𝗹𝗶𝘀𝘁𝗮𝗻𝗲𝗴𝗿𝗮
@@ -41,8 +41,13 @@ ${lermais}
 > 🛡️ ► 𝗱𝗲𝘀𝗺𝘂𝘁𝗲
 > 🛡️ ► 𝗮𝗻𝘁𝗶𝗹𝗶𝗻𝗸
 > 🛡️ ► 𝗮𝗻𝘁𝗶𝘁𝗿𝗮𝘃𝗮
+> 🛡️ ► 𝗮𝗻𝘁𝗶𝗹𝗼𝗰
 > 🛡️ ► 𝗮𝗻𝘁𝗶𝗽𝗼𝗿𝗻𝗼
-> 🛡️ ► 𝗮𝗻𝗿𝗶𝗳𝗮𝗸𝗲
+> 🛡️ ► 𝗮𝗻𝘁𝗶𝗳𝗮𝗸𝗲
+> 🛡️ ► 𝗹𝗶𝗺𝗽𝗮𝗮𝗱𝘃
+> 🛡️ ► 𝗮𝗱𝘃
+> 🛡️ ► 𝘁𝗶𝗿𝗮𝗿𝗮𝗱𝘃
+> 🛡️ ► 𝗹𝗶𝗺𝗽𝗮𝗮𝗱𝘃
 > 🛡️ ► 𝗯𝗲𝗺𝘃𝗶𝗻𝗱𝗼
 > 🛡️ ► 𝗹𝗲𝗴𝗲𝗻𝗱𝗮𝗯𝘃
 > 🛡️ ► 𝗹𝗶𝗺𝗽𝗮𝗿
@@ -51,25 +56,9 @@ ${lermais}
 > 🛡️ ► 𝗯𝗹𝗼𝗰𝗸𝗴𝗽
 > 🛡️ ► 𝗺𝗮𝗿𝗰𝗮 / 𝗰𝗶𝘁𝗮
 > 🛡️ ► 𝘁𝗼𝘁𝗮𝗴
-> 🛡️ ► 𝗮𝗽𝗮𝗴𝗮𝗿
+> 🛡️ ► 𝗴𝗵𝗼𝘀𝘁𝘀
 > 🛡️ ► 𝗱𝗲𝗹
 > 🛡️ ► 𝗮𝘃𝘁
-
-💎 COMANDOS-DONO
-> 💎 ► reiniciar
-> 💎 ► nuke
-> 💎 ► entrargp
-> 💎 ► sairgp
-> 💎 ► tmss
-> 💎 ► idgp
-> 💎 ► novodono
-> 💎 ► banghost
-> 💎 ► 𝗮𝗻𝘁𝗶𝗽𝗿𝗼𝗺𝗼𝘁𝗲
-> 💎 ► bloock
-> 💎 ► unbloock
-> 💎 ► listblock
-> 💎 ► nomebot
-> 💎 ► botoff / boton
 ~✦      ★      𝑺𝒂𝒏𝒊𝒛𝒊𝒏𝒉𝒂𝑩𝒐𝒕      ★     ✦~`;
     await sock.sendMessage(from, {
       text: menuAdmText,

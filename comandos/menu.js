@@ -51,6 +51,8 @@ ${lermais}
 > 👑ۣ ► menuadm
 > 🌎 ► grupoofc  
 > 🌎 ► sorteio
+> 🌎 ► lojasani
+> 🌎 ► calcular
 > 🌎 ► criador
 > 🌎 ► toimg
 > 🌎 ► revelar
@@ -62,7 +64,6 @@ ${lermais}
 > 🌎 ► dono
 > 🌎 ► ping
 > 🌎 ► bot
-> 🌎 ► 1+1
 > 🌎 ► fs
 
 🎭ZOEIRA😂

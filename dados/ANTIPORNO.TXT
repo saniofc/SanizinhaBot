@@ -1,0 +1,5 @@
+// 📛 PRESTA ATENÇÃO! O ANTIPORNO PRECISA DAS APIS PARA ANALISAR CADA MÍDIA ENVIADA NO GRUPO!
+// Quando o AntiPorno estiver ligado, o bot envia para a API analisar: figurinhas, fotos e vídeos.
+// 🚫 Por enquanto, **mídias de visualização única** ainda **não funcionam**.
+
+// ACESSE O SITE https://linkfly.to/nexosfc E COMPRE AS API, QUANTO MAIS API MELHOR!

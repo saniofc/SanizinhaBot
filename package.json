@@ -10,6 +10,7 @@
     "@hapi/boom": "^10.0.1",
     "@whiskeysockets/baileys": "^6.7.18",
     "axios": "^1.10.0",
+    "chalk": "^4.1.2",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "duckduckgo-search": "^1.0.7",

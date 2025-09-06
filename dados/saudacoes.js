@@ -1,5 +1,6 @@
 const moment = require('moment-timezone');
 async function responderSaudacao({ from, sock, msg, podeResponderSaudacao }) {
+  if (msg.key.fromMe) return;
   const agora = moment().tz('America/Sao_Paulo');
   const hora = agora.hour();
   const mensagem = msg.message?.conversation ||
@@ -8,24 +9,20 @@ async function responderSaudacao({ from, sock, msg, podeResponderSaudacao }) {
                    msg.message?.videoMessage?.caption ||
                    '';
   const msgLower = mensagem.toLowerCase();
-  const saudacoes = ['bom dia', 'boa tarde', 'oi boa noite', 'oi bom dia', 'oi boa tarde', 'boa noite'];
+  const saudacoes = ['bom dia🙃', 'boa tarde^_^', 'boa noite'];
   for (const saudacao of saudacoes) {
     if (msgLower.includes(saudacao)) {
-      const correta =
-        (hora >= 5 && hora < 12 && saudacao === 'bom dia') ||
-        (hora >= 12 && hora < 18 && saudacao === 'boa tarde') ||
-        ((hora >= 18 || hora < 5) && saudacao === 'boa noite');
       if (!podeResponderSaudacao(from, saudacao)) break;
+      let horarioCerto = hora >= 5 && hora < 12
+        ? 'bom dia'
+        : hora >= 12 && hora < 18
+        ? 'boa tarde'
+        : 'boa noite😸';
+      const correta = saudacao.includes(horarioCerto);
       let resposta = '';
       if (correta) {
-        resposta = `${saudacao.charAt(0).toUpperCase() + saudacao.slice(1)} 😁`;
+        resposta = `${horarioCerto.charAt(0).toUpperCase() + horarioCerto.slice(1)}`;
       } else {
-        let horarioCerto =
-          hora >= 5 && hora < 12
-            ? 'bom dia'
-            : hora >= 12 && hora < 18
-            ? 'boa tarde'
-            : 'boa noite';
         resposta = `Oxi, mas agora é ${horarioCerto}! 😂`;
       }
       await sock.sendMessage(from, { text: resposta }, { quoted: msg });
