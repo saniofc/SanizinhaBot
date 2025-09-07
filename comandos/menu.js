@@ -89,8 +89,9 @@ ${lermais}
 
 🎮JOGOS⚽
 > 🎲 ► dado
-> 👵🏻 ► jogodavelha🚫
-> 💣 ► campominado🚫
+> 👵🏻 ► jogodavelha
+> 🧐 ► vdddsf
+> 💣 ► campominado
 > 🧩 ► memoria🚫
 > 🧸 ► forca🚫
 
